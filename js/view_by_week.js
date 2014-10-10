@@ -3,14 +3,14 @@
  */
 
 var view_by_week = {
-	// Initialize view_by_week functionality
+    // Initialize view_by_week functionality
     init: function() {
-		// Add currently checked boxes to #checked
+        // Add currently checked boxes to #checked
         $("input[type='checkbox']:checked").each(function(){
             view_by_week.checked($(this).attr('data-title'), $(this).attr('value'));
         });
         
-		// Add newly checked features to #checked, remove them when they're unchecked
+        // Add newly checked features to #checked, remove them when they're unchecked
         $("input[type='checkbox']").bind('change', function(){
             if($(this).is(':checked')){
                 view_by_week.checked($(this).attr('data-title'), $(this).attr('value'));
@@ -19,34 +19,34 @@ var view_by_week = {
             }
         });
         
-		// Select all by category buttons
+        // Select all by category buttons
         $('a.select-group').each(function(){
             $(this).bind('click', function(){
                 view_by_week.select_all($(this).attr('data-select-class'));
             })
         });
         
-		// Select all and clear all buttons
+        // Select all and clear all buttons
         $('#all').bind('click', function(){ view_by_week.select_all(); return false; });
         $('#clear').bind('click', function(){ view_by_week.clear_all(); return false; });
-		
-		// Set max-height of #checked based on the window's height.
+        
+        // Set max-height of #checked based on the window's height.
         $('#checked').css('max-height', (window.innerHeight - 340)+'px');
     },
-	
-	// Add a feature to #checked
+    
+    // Add a feature to #checked
     checked: function(title, file_code) {
         console.log('<li id="checked_'+file_code+'">'+title+'</li>');
         $('#checked').append('<li id="checked_'+file_code+'">'+title+'</li>');
     },
-	
-	// Remove a feature from #checked
+    
+    // Remove a feature from #checked
     unchecked: function(file_code) {
         $('#checked_'+file_code).remove();
     },
-	
-	// Select all features
-	// If sel_class is provided, only select features with that class
+    
+    // Select all features
+    // If sel_class is provided, only select features with that class
     select_all: function(sel_class){
         console.log('selecting all...');
         $("input[type='checkbox']").each(function(){
@@ -60,8 +60,8 @@ var view_by_week = {
             }
         });
     }, 
-	
-	// Uncheck all features
+    
+    // Uncheck all features
     clear_all: function(){
         $("input[type='checkbox']").each(function(){
             if($(this).is(':checked')) {

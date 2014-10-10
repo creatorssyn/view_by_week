@@ -34,7 +34,7 @@ catch(ApiException $e) {
 
 // Download proxy. Prevents re-authentication on file download.
 // ?download_id=<int>&download_type=<file|zip>
-if(isset($_GET['download_id']))	
+if(isset($_GET['download_id']))    
 {
     $dest = APPLICATION_ROOT.'tmp/'.time().rand();
     
@@ -74,19 +74,19 @@ if(isset($_POST['submit']) && isset($_POST['features']) && !empty($_POST['featur
         $releases = array_merge($releases, $api->get_releases($file_code, 100, 0, $start_date));
     }
     
-	// Re-order the release array by release_date
+    // Re-order the release array by release_date
     $releases = array_orderby($releases, 'release_date', SORT_DESC);
     
     foreach($releases as $i=>$release)
     {
-		// Alter file download URLs to use our download proxy
+        // Alter file download URLs to use our download proxy
         foreach($release['files'] as $f=>$file)
         {
             preg_match('#/api/files/download/([0-9]+)#', $file['url'], $matches);
             $releases[$i]['files'][$f]['url'] = SERVICE_ADDRESS.'?download_type=file&amp;download_id='.$matches[1];
         }
-		
-		// Add entire package file
+        
+        // Add entire package file
         $releases[$i]['files'][] = array('description'=>'Entire Package', 'url'=>SERVICE_ADDRESS.'?download_type=zip&amp;download_id='.$release['id']);
     }
     
@@ -103,7 +103,7 @@ else
         $features[$f['category']][] = $f;
     }
     
-	// Re-order each category arry by feature title
+    // Re-order each category arry by feature title
     foreach($features as $k=>$rows)
         $features[$k] = array_orderby($rows, 'title', SORT_ASC);
     
