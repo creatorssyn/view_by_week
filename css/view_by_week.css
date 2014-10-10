@@ -1,0 +1,33 @@
+/* 
+    Document   : view_by_week
+    Created on : Oct 8, 2014, 12:15:23 PM
+    Author     : Brandon Telle <btelle@creators.com>
+    Description:
+        view_by_week marginal tweaks
+*/
+
+#dl-button {
+    margin-top: 5px;
+}
+
+select {
+    margin-top: 25px;
+}
+
+#checked {
+    overflow-y: scroll;
+}
+
+.release_block {
+    margin-bottom: 45px;
+}
+
+.release_block .preview {
+    margin-left: 20px; 
+    margin-top: 10px;
+}
+
+.release_block .preview img {
+    max-width: 400px; 
+    max-height:300px;
+}
