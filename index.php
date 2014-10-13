@@ -16,9 +16,20 @@
  * @copyright (c) 2014, Creators <www.creators.com>
  */
 
-define('LIB_DIR', 'application/libraries/');
-define('APPLICATION_ROOT', 'application/hosted/view_by_week/');
-define('SERVICE_ADDRESS', 'http://get.creators.com/hosted/'.$_GET['api_key'].'/view_by_week');
+
+/* ### Application Settings ################################################ */
+
+// Location of the view_by_week directory 
+define('APPLICATION_ROOT', './');
+
+// Location of the Creators PHP API library 
+define('LIB_DIR', APPLICATION_ROOT.'lib/');
+
+// HTTP address of the service. Do not include a filename (like index.php)
+define('SERVICE_ADDRESS', 'http://yourdomain.com/path/to/view_by_week/');
+
+/* ### End Settings ######################################################## */
+
 
 require_once(LIB_DIR.'creators_php/creators_php.php');
 $api = new Creators_API($_GET['api_key']);
@@ -83,11 +94,11 @@ if(isset($_POST['submit']) && isset($_POST['features']) && !empty($_POST['featur
         foreach($release['files'] as $f=>$file)
         {
             preg_match('#/api/files/download/([0-9]+)#', $file['url'], $matches);
-            $releases[$i]['files'][$f]['url'] = SERVICE_ADDRESS.'?download_type=file&amp;download_id='.$matches[1];
+            $releases[$i]['files'][$f]['url'] = SERVICE_ADDRESS.'?api_key='.$_GET['api_key'].'&amp;download_type=file&amp;download_id='.$matches[1];
         }
         
         // Add entire package file
-        $releases[$i]['files'][] = array('description'=>'Entire Package', 'url'=>SERVICE_ADDRESS.'?download_type=zip&amp;download_id='.$release['id']);
+        $releases[$i]['files'][] = array('description'=>'Entire Package', 'url'=>SERVICE_ADDRESS.'?api_key='.$_GET['api_key'].'&amp;download_type=zip&amp;download_id='.$release['id']);
     }
     
     show_releases($releases);

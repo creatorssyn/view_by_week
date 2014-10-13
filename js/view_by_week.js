@@ -20,9 +20,10 @@ var view_by_week = {
         });
         
         // Select all by category buttons
-        $('a.select-group').each(function(){
+        $('.select-group').each(function(){
             $(this).bind('click', function(){
                 view_by_week.select_all($(this).attr('data-select-class'));
+                return false;
             })
         });
         
