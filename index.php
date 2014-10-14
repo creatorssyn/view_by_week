@@ -32,7 +32,32 @@ define('SERVICE_ADDRESS', 'http://yourdomain.com/path/to/view_by_week/');
 
 
 require_once(LIB_DIR.'creators_php/creators_php.php');
-$api = new Creators_API($_GET['api_key']);
+
+if(Creators_API::API_VERSION < 0.3)
+    die('Error: Creators API version 0.3 or higher is required');
+
+if(isset($_GET['api_key']) && strlen($_GET['api_key']) === Creators_API::API_KEY_LENGTH)
+{
+    $api = new Creators_API($_GET['api_key']);
+}
+else
+{
+    $api = new Creators_API();
+    
+    if(isset($_SERVER['PHP_AUTH_USER'])) 
+    {
+        if($api->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
+        {
+            header('Location: '.SERVICE_ADDRESS.'?api_key='.$api->api_key);
+            exit;
+        }
+    }
+    
+    header('WWW-Authenticate: Basic realm="Creators GET"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Error 401: Unauthorized';
+    exit;
+}
 
 // Check for login failure, service errors, etc.
 try {
@@ -40,7 +65,7 @@ try {
 }
 catch(ApiException $e) {
     echo 'Error '.$e->getCode().': '.$e->getMessage();
-    return;
+    exit;
 }
 
 // Download proxy. Prevents re-authentication on file download.
@@ -71,7 +96,7 @@ if(isset($_GET['download_id']))
     if(file_exists($dest) && !is_dir($dest))
         @unlink($dest);
     
-    return;
+    exit;
 }
 
 // Process form submission, show results
