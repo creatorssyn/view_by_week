@@ -1,4 +1,4 @@
-<? if(isset($_POST['submit'])): ?><div class="alert alert-error"><strong>Error:</strong> You must select a feature to continue</div><? endif; ?>
+<? if(isset($_POST['submit'])): ?><div class="alert alert-danger"><strong>Error:</strong> You must select a feature to continue</div><? endif; ?>
 
 <form action="<?=SERVICE_ADDRESS?>?api_key=<?=$_GET['api_key']?>" method="post" class="form-horizontal">
     <div class="col-lg-4 col-lg-offset-1">

@@ -1,4 +1,4 @@
-<? if(empty($releases)): ?><div class="alert alert-warn">Nothing here :(</div><? endif; ?>
+<? if(empty($releases)): ?><div class="alert alert-warning">Nothing here :(</div><? endif; ?>
 <? foreach($releases as $release): ?>
 <div class="row" style="">
     <div class="release_block col-lg-8 col-lg-offset-2">
